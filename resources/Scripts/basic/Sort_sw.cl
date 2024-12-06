@@ -111,10 +111,14 @@ __kernel void stage2(const __global float *rho_in,
                      __global float *m,
                      const __global vec *u_in,
                      __global vec *u,
+                     const __global float *e_in,
+                     __global float *eee,
                      const __global vec *dudt,
                      __global vec *dudt_in,
                      const __global float *drhodt,
                      __global float *drhodt_in,
+                     const __global float *dedt,
+                     __global float *dedt_in,
                      const __global unit *id_sorted,
                      unsigned int N)
 {
@@ -127,11 +131,13 @@ __kernel void stage2(const __global float *rho_in,
     rho[i_out] = rho_in[i];
     m[i_out] = m_in[i];
     u[i_out] = u_in[i];
+    eee[i_out] = e_in[i];
     // Take care with the variation rates, since they are epheremeral. Thus, the
     // output is actually the _in variable, whilst the other one will be
     // overwritten
     dudt_in[i_out] = dudt[i];
     drhodt_in[i_out] = drhodt[i];
+    dedt_in[i_out] = dedt[i];
 }
 
 /*

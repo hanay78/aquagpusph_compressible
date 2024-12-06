@@ -9,6 +9,7 @@
 INCLUDE (FindPackageHandleStandardArgs)
 
 SET(llvm_config_names llvm-config
+  llvm-config-18 llvm-config-mp-18
   llvm-config-5.0 llvm-config-mp-5.0
   llvm-config-4.0 llvm-config-mp-4.0
   llvm-config-3.7 llvm-config-mp-3.7
