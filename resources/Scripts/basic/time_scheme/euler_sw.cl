@@ -121,8 +121,7 @@ __kernel void corrector(const __global int* imove,
                         const __global vec* dudt,
                         const __global float* drhodt,
                         const __global float* dedt,
-                        const unsigned int N,                        __global float* eee,
-
+                        const unsigned int N,
                         const float dt)
 {
     unsigned int i = get_global_id(0);
