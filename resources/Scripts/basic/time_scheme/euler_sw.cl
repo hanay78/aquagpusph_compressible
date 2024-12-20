@@ -133,7 +133,7 @@ __kernel void corrector(const __global int* imove,
         u[i] += dt * dudt[i];
         rho[i] += dt * drhodt[i];
         eee[i] += dt * dedt[i];
-        //eee[i] = dedt[i];
+
     }
 }
 

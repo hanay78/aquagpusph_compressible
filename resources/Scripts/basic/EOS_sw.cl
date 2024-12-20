@@ -73,15 +73,9 @@ __kernel void entry(const __global unsigned int* iset,
         return;
 
 //     const float epsilon = e[i] - 0.5f * rho[i] * MODULE(u[i]);
-//
-//     p[i] = (gamma-1.0f)*rho[i]*epsilon;
 
-    //const float epsilon = e[i] - 0.5f * rho[i] * MODULE(u[i]);
-    //if ((r[i].x>0) && (r[i].y>0) &&  (r[i].x<0.001f) && (r[i].y<0.001f))
-    //    printf("Density(%f, %f)= %f Energy(%f, %f)= %f\n",r[i].x, r[i].y, rho[i], r[i].x, r[i].y, eee[i]);
-    //exit(0);
     p[i] = (gamma-1.0f)*rho[i]*eee[i];
-    //p[i] = (gamma-1.0f)*rho[i];
+
 }
 
 /*

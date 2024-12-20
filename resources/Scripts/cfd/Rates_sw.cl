@@ -132,8 +132,6 @@ __kernel void entry(const __global uint* iset,
         //dudt[i]   += 2.0f * m_j * p_star /(rho_j * rho_i * H) * kernelF(q) * l_ij;
         dudt[i]   += auxu;
         dedt[i]   -= 2.0f * m_j * p_star /(rho_j * rho_i * H) * (u_R_i - u_star) * kernelF(q);
-        //dedt[i]   = 0.f;
-        //dedt[i]   = r[i].x;
-        //dedt[i]   = 0.f;
+
     }END_LOOP_OVER_NEIGHS()
 }
