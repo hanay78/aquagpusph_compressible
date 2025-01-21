@@ -22,7 +22,7 @@
 
 #include "resources/Scripts/types/types.h"
 
-//#define gamma 1.44f
+#define gamma 1.44f
 
 __kernel void entry(const __global unsigned int* iset,
                     const __global int* imove,
