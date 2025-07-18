@@ -37,16 +37,16 @@ sys.path.append(os.path.join(script_folder, "../../"))
 import aqua_example_utils as utils
 import math
 
-
 courant = 0.5
-L = 1.0
-support = 2.0 
+R = 0.5
+R0 = 0.2
 hfac = 2.0
-nx = 500
+
+n = 50000
 
 gamma = 1.4
 
-p1 = 20.0e5
+p1 = 2.0e5
 p2 = 1.0e5
 
 rho1 = 1.00001
@@ -60,15 +60,12 @@ cs = max(c1, c2)
 e1 = p1 / ((gamma - 1.0) * rho1)
 e2 = p2 / ((gamma - 1.0) * rho2)
 
-# Distance between particles
-# ==========================
-dr = L / nx
+t_max = R0 / cs
+
+Vol = math.pi * R**2
+dv = Vol / n
+dr = dv**0.5
 h = hfac * dr
-t_max = (0.5 * L - support * h) / cs
-# For the vertical dimension, we need to grant that no particle can see
-# simultaneously both, the top and bottom symmetry planes.
-# On top of that, we are interested on having a file of particles at y=0
-R = 2 * support * h + dr  # Distance between the symmetry planes
 
 print("")
 print(f"c1 = {c1}")
@@ -115,40 +112,40 @@ print(string)
 
 N = 0
 string = """
-    Writing fluid particles...
+    Writing reservoir fluid particles...
 """
 print(string)
 
-x = -0.5 * (L - dr)
-while x < 0.5 * L:
-    rho, ener = (rho1, e1) if x < 0 else (rho2, e2)
-    y = -0.5 * (R - dr)
-    while y < 0.5 * R:
+x = -R
+while x < R:
+    y = -R
+    while y < R:
+        r = math.sqrt(x**2 + y**2)
+        if r > R:
+            y += dr
+            continue
+
+        rho, ener = (rho1, e1) if r < R0 else (rho2, e2)
+
         writeParticle(output, (x, y), rho=rho, e=ener)
         N += 1
+
         y += dr
     x += dr
 
 print(f'{N} particles.')
 
-string = """
-    Writing buffer particles...
-"""
-print(string)
-domain_min = (-0.5 * L - support * h, -1.5 * R - support * h)
-domain_max = (0.5 * L + support * h, 1.5 * R + support * h)
-x, y = domain_max[0] + support * h, domain_max[1] + support * h
-for _ in range(2 * N):
-    writeParticle(output, (x, y), imove=-255)
-N *= 3
-
+factor = 2.0
+R_domain = R + 4.0 * h
+domain_min = (-R_domain, -R_domain)
 domain_min = str(domain_min).replace('(', '').replace(')', '')
+domain_max = (R_domain, R_domain)
 domain_max = str(domain_max).replace('(', '').replace(')', '')
 
 data = {'DR': str(dr), 'HFAC': str(hfac), 'H': str(h), 'COURANT': str(courant),
-        'L': str(L), 'R': str(R), 'T': str(t_max),
+        'R': str(R), 'R0': str(R0), 'T': str(t_max),
         'DOMAIN_MIN': domain_min, 'DOMAIN_MAX': domain_max,
-        'N': str(N), 'CS': str(cs), 'GAMMA': str(gamma), 
+        'N': str(N), 'CS': str(cs), 'GAMMA': str(gamma),
         'P1': str(p1), 'P2': str(p2), 'RHO1': str(rho1), 'RHO2': str(rho2),
         'E1': str(e1), 'E2': str(e2), }
 utils.configure(data, os.path.join(script_folder, "templates"))

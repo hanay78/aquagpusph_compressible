@@ -21,7 +21,7 @@
  */
 
 #if defined(LOCAL_MEM_SIZE) && defined(NO_LOCAL_MEM)
-#error NO_LOCAL_MEM has been set.
+	#error NO_LOCAL_MEM has been set.
 #endif
 
 #include "resources/Scripts/types/types.h"
@@ -74,7 +74,7 @@ entry(const __global unsigned int* iset,
 	const usize it = get_local_id(0);
 	if (i >= N)
 		return;
-	if (imove[i] != 1) {
+	if (imove[i] != 1){
 		return;
 	}
 
@@ -85,19 +85,19 @@ entry(const __global unsigned int* iset,
 	const float gamma_i = gamma[iset[i]];
 	const float s_i = sound_speed_perfect_gas(gamma_i, p_i, rho_i);
 	const float m_i = m[i];
-	const float rs_i = rho_i * s_i;
+	//const float rs_i = rho_i * s_i;
 
-// const float D_i = sqrt(m_i/rho_i);
+
 
 // Initialize the output
 #ifndef LOCAL_MEM_SIZE
-#define _GRADP_ grad_p[i].XYZ
-#define _W_DEN_ work_density[i]
-#define _DIVU_ div_u[i]
+	#define _GRADP_ grad_p[i].XYZ
+	#define _W_DEN_ work_density[i]
+	#define _DIVU_ div_u[i]
 #else
-#define _GRADP_ grad_p_l[it]
-#define _W_DEN_ work_density_l[it]
-#define _DIVU_ div_u_l[it]
+	#define _GRADP_ grad_p_l[it]
+	#define _W_DEN_ work_density_l[it]
+	#define _DIVU_ div_u_l[it]
 	__local vec_xyz grad_p_l[LOCAL_MEM_SIZE];
 	__local float work_density_l[LOCAL_MEM_SIZE];
 	__local float div_u_l[LOCAL_MEM_SIZE];
@@ -140,9 +140,10 @@ entry(const __global unsigned int* iset,
 			// this should be changed for variable h!!!!
 			const float h_ij_med = 0.5f * (H + H);
 
-			const float rho_ij_med_inv = 1 / (0.5 * (rho_i + rho_j));
+			const float rho_ij_med_inv = 1.0f / (0.5f * (rho_i + rho_j));
 
 			const float v_dot_r = dot(v_ij, r_ij);
+
 			const float mu_ij =
 			    h_ij_med * v_dot_r /
 			    (dot(r_ij, r_ij) + tiny_eps * h_ij_med * h_ij_med);
@@ -153,16 +154,16 @@ entry(const __global unsigned int* iset,
 				                          beta_mg * mu_ij * mu_ij);
 			}
 
-			const float local_div = m_j * v_dot_r * f_ij;
+			const float local_div = v_dot_r * f_ij;
 
 			_DIVU_ += local_div;
 
-			_GRADP_ -= m_j *
+			_GRADP_ -= 
 			           (p_i / (rho_i * rho_i) + p_j / (rho_j * rho_j) + PI_ij) *
 			           r_ij * f_ij;
 
 			_W_DEN_ += p[i] / (rho[i] * rho[i]) * local_div +
-			           0.5f * m_j * PI_ij * v_dot_r * f_ij;
+			           0.5f * PI_ij * v_dot_r * f_ij;
 		}
 	}
 	END_NEIGHS()
