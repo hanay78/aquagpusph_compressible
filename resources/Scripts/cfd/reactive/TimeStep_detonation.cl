@@ -58,8 +58,6 @@
  * @param h Kernel characteristic length \f$ h \f$.
  */
 
-//#define gamma 1.4f
-
 __kernel void entry(__global float* dt_var,
                     const __global int* imove,
                     const __global unsigned int* iset,
@@ -86,12 +84,8 @@ __kernel void entry(__global float* dt_var,
         return;
     }
     
-
-//    float dxx = 0.5f * sqrt(4.0f * M_1_PI_F * m[i] / rho[i]);
-    
     const float dxx=H;
 
-    //float s_i = sqrt(gamma * p[i] / rho[i]);
     const float s_i = sound_speed_perfect_gas(gamma[i], p[i], rho[i]);
 
     const float dt_u1 = courant * 0.4f * dxx / sqrt((4.0f * dxx * div_u[i] / rho[i])*(4.0f * dxx * div_u[i] / rho[i]) + s_i * s_i);
@@ -99,7 +93,7 @@ __kernel void entry(__global float* dt_var,
     //const float dt_u3 = courant * sqrt(dxx / (length(dudt[i]))); 
     const float dt_u3 = courant * dxx / (length(u[i])+1.0e-12f);
     const float dt_u4 = courant * 0.4f * dxx / sqrt(length(u[i]) * length(u[i]) + s_i * s_i);
-    const float dt_u5 = courant * 0.5f / zeta_dot[i];
+    const float dt_u5 = courant * 0.5f / (zeta_dot[i]+1.0e-5f);
     const float dt_u6 = courant * dxx / (s_i + dxx * sqrt(div_u[i]*div_u[i])/ rho[i]);
     //float dt_u = min(min(min(dt_u1, dt_u2), dt_u3), dt_u4);
     const float dt_u = min(min(min(min(min(dt_u1, dt_u2), dt_u3), dt_u4), dt_u5), dt_u6);
