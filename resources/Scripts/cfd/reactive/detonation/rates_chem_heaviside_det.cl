@@ -1,6 +1,6 @@
 #include "resources/Scripts/types/types.h"
 #include "resources/Scripts/cfd/reactive/reaction_generic.hcl"
-#include "resources/Scripts/cfd/reactive/detonation/heaviside_detonation.hcl"
+#include "resources/Scripts/cfd/reactive/detonation/heav_detonation.hcl"
 
 __kernel void entry(const __global unsigned int* iset,
                     const __global int* imove,
@@ -25,5 +25,5 @@ __kernel void entry(const __global unsigned int* iset,
         return;
     }
 
-    w_rhos_heaviside_det(z[i], T[i], ys[i], trigger[i], dysdt+i, deintdt+i, zeta_dot+i);
+    w_rhos_heav_det(z[i], T[i], ys[i], trigger[i], dysdt+i, deintdt+i, zeta_dot+i);
 }
