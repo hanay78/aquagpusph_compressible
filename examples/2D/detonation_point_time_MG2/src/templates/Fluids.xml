@@ -25,6 +25,6 @@ Authors:
         <Scalar name="cv" value="{{CV}}" />-->
         <Load format="FastASCII" file="Fluid.dat" fields="r, normal, u, dudt, rho, drhodt, eint, deintdt, 
         z, ys, dysdt, trigger, m, imove" />
-        <Save format="VTK" file="output" fields="r, normal, u, dudt, rho, drhodt, eint, deintdt, z, ys, dysdt, xs, m, p, T, cv, trigger, imove" />
+        <Save format="VTK" file="output" fields="r, normal, u, dudt, rho, drhodt, eint, deintdt, z, ys, dysdt, xs, m, p, T, cv, cp, gamma, trigger, imove" />
     </ParticlesSet>
 </sphInput>

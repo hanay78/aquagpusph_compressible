@@ -64,17 +64,17 @@ y_N2_2 = n_N2 * M_N2 / MM2
 y_H2O_2 = 0.
 #z = y_H2
 
-#MM1=0.21 * M_O2 + 0.79 * M_N2
-#y_H2_1 = 0.4
-#y_O2_1 = 0.21 * M_O2 / MM1
-#y_N2_1 = 0.79 * M_N2 / MM1
-#y_H2O_1 = 0.
+MM1=0.21 * M_O2 + 0.79 * M_N2
+y_H2_1 = 0.0
+y_O2_1 = 0.21 * M_O2 / MM1
+y_N2_1 = 0.79 * M_N2 / MM1
+y_H2O_1 = 0.
 
-MM1 = MM2
-y_H2_1 = y_H2_2
-y_O2_1 = y_O2_2
-y_N2_1 = y_N2_2
-y_H2O_1 = y_H2O_2
+#MM1 = MM2
+#y_H2_1 = y_H2_2
+#y_O2_1 = y_O2_2
+#y_N2_1 = y_N2_2
+#y_H2O_1 = y_H2O_2
 
 
 print("")
@@ -94,7 +94,7 @@ hfac = 4.0
 
 n = 300000
 
-gamma=1.4
+gamma=1.275
 cv=716.0
 
 #p1 = 30.0e5
@@ -105,13 +105,16 @@ p2 = 1.0e5
 print("P1 = %f"%(p1,))
 print("P2 = %f"%(p2,))
 
-T1 = 300.0
-T2 = 300.0
+#T1 = 300.0
+#T2 = 300.0
 
 #rho1 = p1 * MM1 /(8.31 * T1)
-rho1 = p1 * MM1 /(8.31 * T1)
+#rho1 = p1 * MM1 /(8.31 * T1)
 #rho2 = 1.00001
-rho2 = p2 * MM2 /(8.31 * T2)
+#rho2 = p2 * MM2 /(8.31 * T2)
+
+rho1=1.000001
+rho2=1.000001
 
 print("")
 print(f"rho1 = {rho1}")
@@ -219,7 +222,7 @@ while x < R:
 #        rho, ener, y_H2, y_O2, y_N2, y_H2O = (rho1, e1, y_H2_1, y_O2_1, y_N2_1, y_H2O_1) if r < R0 else (rho2, e2, y_H2_2, y_O2_2, y_N2_2, y_H2O_2)
 
         #rho, ener, y_H2, y_O2, y_N2, y_H2O = (rho_all, e_all, y_H2_2, y_O2_2, y_N2_2, y_H2O_2)
-        rho, ener, y_H2, y_O2, y_N2, y_H2O, trigger = (rho1, e1, y_H2_2, y_O2_2, y_N2_2, y_H2O_2, 1) if r < R0 else (rho2, e2, y_H2_2, y_O2_2, y_N2_2, y_H2O_2, 0)
+        rho, ener, y_H2, y_O2, y_N2, y_H2O, trigger = (rho1, e1, y_H2_1, y_O2_1, y_N2_1, y_H2O_1, 1) if r < R0 else (rho2, e2, y_H2_2, y_O2_2, y_N2_2, y_H2O_2, 0)
         z=y_H2
         
         #rho, ener, y_H2, y_O2, y_N2, y_H2O = (rho1, e1, y_H2_1, y_O2_1, y_N2_1, y_H2O_1) if r < R0 else (rho2, e2, y_H2_2, y_O2_2, y_N2_2, y_H2O_2)

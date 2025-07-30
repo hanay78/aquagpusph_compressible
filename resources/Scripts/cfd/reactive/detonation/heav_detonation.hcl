@@ -43,7 +43,7 @@ zeta_dot_calc_heav(float z, float T, float y_0, float MMix, int trigger)
 		{
 			hevfact = 1.0f;
 		}		
-		return 75.0f / H * (1.0f - zeta) * hevfact;
+		return 100.0f / H * (1.0f - zeta) * hevfact;
 	} else {		
 		return 0.0f;
 	}

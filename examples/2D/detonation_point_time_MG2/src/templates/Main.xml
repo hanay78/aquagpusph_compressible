@@ -33,7 +33,7 @@ Authors:
     <Include file="resources/Presets/cfd/species/X_from_Y.xml" />
 
     <Include file="resources/Presets/cfd/reactive/reactive_trigger.xml" />
-    <!--<Include file="resources/Presets/cfd/reactive/reactive_heav_det.xml" />-->
+    <Include file="resources/Presets/cfd/reactive/reactive_heav_det.xml" />
     <Include file="resources/Presets/cfd/variableTimeStep.xml" />
     <Include file="resources/Presets/cfd/reactive/variableTimeStep_detonation.xml" />
 
