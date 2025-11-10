@@ -13,6 +13,6 @@ Remarks:
 
 <sphInput>
     <Tools>
-        <Tool name="cfd BIe compression integral" action="insert" after="cfd BIe rates" type="kernel" path="../../Scripts/cfd/Boundary/BIe/Compression_integral.cl"/>
+        <Tool name="cfd BIe compression integral" action="insert" after="cfd BIe rates" type="kernel" path="../../../Scripts/cfd/Boundary/BIe/Compression_integral.cl"/>
     </Tools>
 </sphInput>

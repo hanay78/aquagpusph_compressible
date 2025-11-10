@@ -38,7 +38,8 @@ Authors:
     <!--<Include file="resources/Presets/cfd/deltaSPH.xml" />
     <Include file="resources/Presets/cfd/deltaSPH-full.xml" />-->
     <Include file="resources/Presets/cfd/BIe.xml" />
-    <Include file="resources/Presets/cfd/BIe/Force.xml" />
+    <Include file="resources/Presets/cfd/BIe/Force.xml" /> 
+    <Include file="resources/Presets/cfd/BIe/BIe_energy.xml" />
     <!--<Include file="resources/Presets/cfd/inlet.xml" />-->
     <!--<Include file="resources/Presets/cfd/outlet.xml" />-->
     <Include file="resources/Presets/cfd/energy.xml" />
