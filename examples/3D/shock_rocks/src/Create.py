@@ -35,11 +35,12 @@ import sys
 script_folder = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(script_folder, "../../"))
 import aqua_example_utils as utils
+
 import numpy as np
 import trimesh
 import meshio
 import platform
-
+import math
 
 
 g = 0.0
@@ -144,7 +145,7 @@ for i, f in enumerate(files):
                 dens,
                 0.0,
                 e1,
-                0.0
+                0.0,
                 s,
                 imove)
             output.write(string)
@@ -256,7 +257,7 @@ for point in points:
     dens = refd + press / cs**2 
     
     
-    if sqrt((x-Cx)**2+(y-Cy)**2+(z-Cz)**2) < R:
+    if np.sqrt((x-Cx)**2+(y-Cy)**2+(z-Cz)**2) < R:
         rho, ener = rho1, e1
     else:
         rho, ener = rho2, e2
@@ -420,6 +421,6 @@ data = {'DR':str(dr), 'HFAC':str(hfac), 'CS':str(cs), 'COURANT':str(courant),
         'NX':str(Nx), 'NY':str(Ny), 'NZ':str(Nz),
         'NROCKS':str(n_rocks), 'n_fluid':str(n_fluid)}
 exttool_lib_name = "rocks_sim.dll" if platform.system() == "Windows" \
-    else "librocks_sim.so"
+    else "libs_rocks_sim.so"
 data['EXTTOOL_LIB_PATH'] = os.path.join(script_folder, exttool_lib_name)
 utils.configure(data, os.path.join(script_folder, "templates"))
