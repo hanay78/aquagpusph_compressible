@@ -52,21 +52,17 @@ alpha = 0.0
 delta = 1.0
 visc_dyn = 0.0
 
-
-
-
-
 courant = 0.5
 R = 0.5
-R0 = 0.2
+
 
 gamma = 1.4
 
-p1 = 20.0e5
+p1 = 10.0e5
 p2 = 1.0e5
 
-rho1 = 1.00001
-rho2 = 1.00001
+rho1 = 1.0
+rho2 = 1.0
 
 c1 = math.sqrt(gamma * p1 / rho1)
 c2 = math.sqrt(gamma * p2 / rho2)
@@ -76,7 +72,7 @@ cs = max(c1, c2)
 e1 = p1 / ((gamma - 1.0) * rho1)
 e2 = p2 / ((gamma - 1.0) * rho2)
 
-t_max = R0 / cs
+t_max = 15 * R / cs
 
 
 # Read the mesh files and create the particles and XML input files
@@ -142,9 +138,9 @@ for i, f in enumerate(files):
                 t[0], t[1], t[2],
                 0.0, 0.0, 0.0,
                 0.0, 0.0, 0.0,
-                dens,
+                rho2,
                 0.0,
-                e1,
+                e2,
                 0.0,
                 s,
                 imove)
@@ -185,14 +181,18 @@ H *= 1.5
 
 sep = 2.0
 h = hfac * dr
-Lext = L + 2 * sep * h
+#Lext = L + 2 * sep * h
+Lext = L
 
-Nx = nx = int(round(Lext / dr)) + 1
+#Nx = nx = int(round(Lext / dr)) + 1
+Nx = nx = int(round(Lext / dr))
 Ny = ny = int(round(B / dr))
 Nz = nz = int(round(H / dr))
 
-Lext = (Nx - 1) * dr
-L = Lext - 2 * sep * h
+#Lext = (Nx - 1) * dr
+Lext = Nx * dr
+#L = Lext - 2 * sep * h
+L = Nx * dr
 B = Ny * dr
 H = Nz * dr
 
@@ -205,7 +205,8 @@ n_buffer = n_buffer_depth * Ny * Nz
 points = []
 hL = 0.5 * Lext
 hB = 0.5 * B
-x = np.linspace(-hL - 0.5 * dr, hL + 0.5 * dr, num=Nx)
+#x = np.linspace(-hL - 0.5 * dr, hL + 0.5 * dr, num=Nx)
+x = np.linspace(-hL + 0.5 * dr, hL - 0.5 * dr, num=Nx)
 y = np.linspace(-hB + 0.5 * dr, hB - 0.5 * dr, num=Ny)
 z = np.linspace(0.5 * dr, H - 0.5 * dr, num=nz)
 xv, yv, zv = np.meshgrid(x, y, z)
@@ -253,9 +254,6 @@ n_fluid = 0
 for point in points:
     x, y, z = point
     imove = 1
-    press = -refd * g * (H - z)
-    dens = refd + press / cs**2 
-    
     
     if np.sqrt((x-Cx)**2+(y-Cy)**2+(z-Cz)**2) < R:
         rho, ener = rho1, e1
@@ -269,7 +267,7 @@ for point in points:
         0.0, 0.0, 0.0,
         0.0, 0.0, 0.0,
         0.0, 0.0, 0.0,
-        dens,
+        rho,
         0.0,
         ener,
         0.0,
@@ -302,13 +300,12 @@ for point in points:
 
 # Bottom
 for i in range(Nx):
-    x = -hL - 0.5 * dr + i * dr
+    #x = -hL - 0.5 * dr + i * dr
+    x = -hL + 0.5 * dr + i * dr
     for j in range(Ny):
         y = -hB + 0.5 * dr + j * dr
         z = 0.0
         imove = -3
-        press = -refd * g * (H - z)
-        dens = refd + press / cs**2 
         mass = dr**2.0
         string = ("{} {} {} 0.0, " * 5 + "{}, {}, {}, {}, {}, {}\n").format(
             x, y, z,
@@ -316,9 +313,9 @@ for i in range(Nx):
             -1.0, 0.0, 0.0,
             0.0, 0.0, 0.0,
             0.0, 0.0, 0.0,
-            dens,
+            rho2,
             0.0,
-            e1,
+            e2,
             0.0,
             mass,
             imove)
@@ -327,13 +324,12 @@ for i in range(Nx):
 
 # Top
 for i in range(Nx):
-    x = -hL - 0.5 * dr + i * dr
+    #x = -hL - 0.5 * dr + i * dr
+    x = -hL + 0.5 * dr + i * dr
     for j in range(Ny):
         y = -hB + 0.5 * dr + j * dr
         z = H
         imove = -3
-        press = -refd * g * (H - z)
-        dens = refd + press / cs**2 
         mass = dr**2.0
         string = ("{} {} {} 0.0, " * 5 + "{}, {}, {}, {}, {}, {}\n").format(
             x, y, z,
@@ -341,9 +337,9 @@ for i in range(Nx):
             1.0, 0.0, 0.0,
             0.0, 0.0, 0.0,
             0.0, 0.0, 0.0,
-            dens,
+            rho2,
             0.0,
-            e1,
+            e2,
             0.0,
             mass,
             imove)
@@ -352,15 +348,14 @@ for i in range(Nx):
 
 # Front and back
 for i in range(Nx):
-    x = -hL - 0.5 * dr + i * dr
+    #x = -hL - 0.5 * dr + i * dr
+    x = -hL + 0.5 * dr + i * dr
     for k in range(Nz):
         z = 0.5 * dr + k * dr
         for j in (-1, 1):
             y = hB * j
             ny = j
             imove = -3
-            press = -refd * g * (H - z)
-            dens = refd + press / cs**2 
             mass = dr**2.0
             string = ("{} {} {} 0.0, " * 5 + "{}, {}, {}, {}, {}, {}\n").format(
                 x, y, z,
@@ -368,9 +363,9 @@ for i in range(Nx):
                 0.0, 0.0, -ny,
                 0.0, 0.0, 0.0,
                 0.0, 0.0, 0.0,
-                dens,
+                rho2,
                 0.0,
-                e1,
+                e2,
                 0.0,
                 mass,
                 imove)
@@ -384,11 +379,9 @@ for j in range(Ny):
     for k in range(Nz):
         z = 0.5 * dr + k * dr
         for i in (-1, 1):
-            x = Lext * i
+            x = hL * i #+ dr * i
             nx = i
             imove = -3
-            press = -refd * g * (H - z)
-            dens = refd + press / cs**2 
             mass = dr**2.0
             string = ("{} {} {} 0.0, " * 5 + "{}, {}, {}, {}, {}, {}\n").format(
                 x, y, z,
@@ -396,9 +389,9 @@ for j in range(Ny):
                 0.0, 0.0, -nx,
                 0.0, 0.0, 0.0,
                 0.0, 0.0, 0.0,
-                dens,
+                rho2,
                 0.0,
-                e1,
+                e2,
                 0.0,
                 mass,
                 imove)
@@ -417,7 +410,7 @@ data = {'DR':str(dr), 'HFAC':str(hfac), 'CS':str(cs), 'COURANT':str(courant),
         'DOMAIN_MIN':domain_min, 'DOMAIN_MAX':domain_max, 'REFD':str(refd),
         'VISC_DYN':str(visc_dyn), 'DELTA':str(delta), 'G':str(g),
         'L':str(L), 'B':str(B), 'H':str(H), 'GAMMA':str(gamma),        
-        'NX':str(Nx), 'NY':str(Ny), 'NZ':str(Nz),
+        'NX':str(Nx), 'NY':str(Ny), 'NZ':str(Nz), 'T': str(t_max),
         'NROCKS':str(n_rocks), 'n_fluid':str(n_fluid)}
 exttool_lib_name = "rocks_sim.dll" if platform.system() == "Windows" \
     else "libs_rocks_sim.so"
