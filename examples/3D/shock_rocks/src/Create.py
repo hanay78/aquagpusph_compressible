@@ -51,9 +51,9 @@ refd = 1.0
 alpha = 0.0
 delta = 1.0
 visc_dyn = 0.0
-U = 1.0
-p0 = 3.0 * refd * U**2
-ramp = 0.1
+
+
+
 
 
 courant = 0.5
@@ -416,8 +416,7 @@ domain_max = str(domain_max).replace('(', '').replace(')', '')
 data = {'DR':str(dr), 'HFAC':str(hfac), 'CS':str(cs), 'COURANT':str(courant),
         'DOMAIN_MIN':domain_min, 'DOMAIN_MAX':domain_max, 'REFD':str(refd),
         'VISC_DYN':str(visc_dyn), 'DELTA':str(delta), 'G':str(g),
-        'L':str(L), 'B':str(B), 'H':str(H),
-        'U':str(U), 'P0':str(p0), 'RAMP_TIME':str(ramp),
+        'L':str(L), 'B':str(B), 'H':str(H), 'GAMMA':str(gamma),        
         'NX':str(Nx), 'NY':str(Ny), 'NZ':str(Nz),
         'NROCKS':str(n_rocks), 'n_fluid':str(n_fluid)}
 exttool_lib_name = "rocks_sim.dll" if platform.system() == "Windows" \

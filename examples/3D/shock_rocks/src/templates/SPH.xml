@@ -24,7 +24,6 @@ Authors:
         <Variable name="hfac" type="float" value="{{HFAC}}" />
         <Variable name="h" type="float" value="hfac * dr" />
         <Variable name="cs" type="float" value="{{CS}}" />
-        <Variable name="p0" type="float" value="{{P0}}" />
         <Variable name="courant" type="float" value="{{COURANT}}" />
         <Variable name="domain_min" type="vec" value="{{DOMAIN_MIN}}" />
         <Variable name="domain_max" type="vec" value="{{DOMAIN_MAX}}" />
@@ -33,8 +32,6 @@ Authors:
         <Variable name="Residual_midpoint_max" type="float" length="1" value="1.e-1" symbol="E_{\Delta t}^{max}"/>
         <Variable name="Residual_midpoint_mindec" type="float" length="1" value="1.0 / 5.0" symbol="E_{\Delta t} / E_{\Delta t,m-1}"/>
         <Variable name="relax_midpoint_inc" type="float" length="1" value="0.25" symbol="f_{\Delta t,0}"/>
-        <Variable name="U" type="float" value="{{U}}" />
-        <Variable name="ramp_time" type="float" value="{{RAMP_TIME}}" />
         <Variable name="L" type="float" value="{{L}}" />
         <Variable name="B" type="float" value="{{B}}" />
         <Variable name="REFD" type="float" value="{{REFD}}" />
