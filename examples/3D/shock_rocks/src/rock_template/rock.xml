@@ -22,8 +22,8 @@ Authors:
         <Scalar name="refd" value="{{REFD}}" />
         <Scalar name="visc_dyn" value="{{VISC_DYN}}" />
 
-        <Load format="FastASCII" file="{{FIN}}" fields="r, normal, tangent, u, dudt, rho, drhodt, m, imove" />
-        <Save format="VTK" file="{{FOUT}}" fields="r, normal, tangent, binormal, u, dudt, rho, drhodt, m, p, imove, shepard" />
+        <Load format="FastASCII" file="{{FIN}}" fields="r, normal, tangent, u, dudt, rho, drhodt, eint, deintdt, m, imove" />
+        <Save format="VTK" file="{{FOUT}}" fields="r, normal, tangent, binormal, u, dudt, rho, drhodt, eint, deintdt, m, p, imove, shepard" />
     </ParticlesSet>
 
     <!-- Forces measurement -->
