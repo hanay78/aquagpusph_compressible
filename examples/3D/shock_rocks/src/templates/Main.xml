@@ -40,10 +40,12 @@ Authors:
     <Include file="resources/Presets/cfd/BIe.xml" />
     <Include file="resources/Presets/cfd/BIe/Force.xml" /> 
     <Include file="resources/Presets/cfd/BIe/BIe_energy.xml" />
+
     <!--<Include file="resources/Presets/cfd/inlet.xml" />-->
     <!--<Include file="resources/Presets/cfd/outlet.xml" />-->
-    <Include file="resources/Presets/cfd/energy.xml" />
-    <Include file="resources/Presets/cfd/energy.report.xml" />
+    <!--<Include file="resources/Presets/cfd/energy.xml" />-->
+    <!--<Include file="resources/Presets/cfd/energy.report.xml" />-->
+    
     <Include file="resources/Presets/basic/domain.xml" />
     <Include file="resources/Presets/basic/timing.report.xml" />
     <Include file="resources/Presets/basic/performance.report.xml" />

@@ -52,13 +52,13 @@ alpha = 0.0
 delta = 1.0
 visc_dyn = 0.0
 
-courant = 0.5
+courant = 0.05
 R = 0.5
 
 
 gamma = 1.4
 
-p1 = 10.0e5
+p1 = 2.0e5
 p2 = 1.0e5
 
 rho1 = 1.0
@@ -236,7 +236,8 @@ for i, mesh in enumerate(meshes):
     points = points[np.logical_not(mask)]
 
 
-Cx=-hL/2
+#Cx=-hL/2
+Cx=-3*hL/5
 Cy=0.0
 Cz=H/2
 

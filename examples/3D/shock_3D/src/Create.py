@@ -52,7 +52,7 @@ alpha = 0.0
 delta = 1.0
 visc_dyn = 0.0
 
-courant = 0.5
+courant = 0.05
 R = 0.5
 
 
@@ -214,7 +214,8 @@ print(f"{len(points)} candidate points")
 #    points = points[np.logical_not(mask)]
 
 
-Cx=-hL/2
+#Cx=-hL/2
+Cx=-3*hL/5
 Cy=0.0
 Cz=H/2
 
@@ -283,7 +284,7 @@ for i in range(Nx):
         y = -hB + 0.5 * dr + j * dr
         z = 0.0
         imove = -3
-        mass = rho * dr**2.0
+        mass = dr**2.0
         string = ("{} {} {} 0.0, " * 5 + "{}, {}, {}, {}, {}, {}\n").format(
             x, y, z,
             0.0, 0.0, -1.0,
@@ -306,7 +307,7 @@ for i in range(Nx):
         y = -hB + 0.5 * dr + j * dr
         z = H
         imove = -3
-        mass = rho * dr**2.0
+        mass = dr**2.0
         string = ("{} {} {} 0.0, " * 5 + "{}, {}, {}, {}, {}, {}\n").format(
             x, y, z,
             0.0, 0.0, 1.0,
@@ -331,7 +332,7 @@ for i in range(Nx):
             y = hB * j
             ny = j
             imove = -3
-            mass = rho * dr**2.0
+            mass = dr**2.0
             string = ("{} {} {} 0.0, " * 5 + "{}, {}, {}, {}, {}, {}\n").format(
                 x, y, z,
                 0.0, ny, 0.0,
@@ -357,7 +358,7 @@ for j in range(Ny):
             x = hL * i #+ dr * i
             nx = i
             imove = -3
-            mass = rho * dr**2.0
+            mass = dr**2.0
             string = ("{} {} {} 0.0, " * 5 + "{}, {}, {}, {}, {}, {}\n").format(
                 x, y, z,
                 nx, 0.0, 0.0,
