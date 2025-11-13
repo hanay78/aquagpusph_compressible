@@ -52,13 +52,13 @@ alpha = 0.0
 delta = 1.0
 visc_dyn = 0.0
 
-courant = 0.05
+courant = 0.25
 R = 0.5
 
 
 gamma = 1.4
 
-p1 = 2.0e5
+p1 = 10.0e5
 p2 = 1.0e5
 
 rho1 = 1.0
@@ -72,7 +72,7 @@ cs = max(c1, c2)
 e1 = p1 / ((gamma - 1.0) * rho1)
 e2 = p2 / ((gamma - 1.0) * rho2)
 
-t_max = 15 * R / cs
+t_max = 150 * R / cs
 
 
 # Read the mesh files and create the particles and XML input files

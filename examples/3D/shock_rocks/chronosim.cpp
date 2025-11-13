@@ -28,7 +28,7 @@
 #include <cmath>
 
 // The density of the rock material
-#define ROCK_DENSITY 10.0
+#define ROCK_DENSITY 1.0
 // The envelope size, that should match the blender setup
 #define ENVELOPE_SIZE 0.001
 
@@ -46,6 +46,7 @@ namespace Aqua{ namespace CalcServer{
  */
 unsigned int num_digits(unsigned int n)
 {
+    printf("num_digits\n");
     unsigned int digits = 1;
     while (n /= 10)
         digits++;
@@ -59,6 +60,7 @@ unsigned int num_digits(unsigned int n)
  */
 std::string int2string(unsigned int n, unsigned int digits)
 {
+    printf("int2string\n");
     std::string str = std::to_string(n);
     if (str.length() < digits)
         str.insert(0, digits - str.length(), '0');
@@ -77,6 +79,7 @@ RocksSim::~RocksSim()
 void
 RocksSim::setup()
 {
+    printf("setup\n");
     Tool::setup();
 
     // Get the configuration variables
@@ -202,6 +205,7 @@ RocksSim::setup()
 void
 setForce(std::shared_ptr<chrono::ChForce> var, vec4 value)
 {
+    printf("setForce\n");
     chrono::ChVector3d v(value.x, value.y, value.z);
     if (v.IsNull()) {
         var->SetMforce(0.0);
@@ -217,6 +221,7 @@ setForce(std::shared_ptr<chrono::ChForce> var, vec4 value)
 void
 setVec(Aqua::InputOutput::Variable* var, chrono::ChVector3d value)
 {
+    printf("setVec\n");
     vec4 v;
     v.x = value.x();
     v.y = value.y();
@@ -228,6 +233,7 @@ setVec(Aqua::InputOutput::Variable* var, chrono::ChVector3d value)
 cl_event
 RocksSim::_execute(const std::vector<cl_event> UNUSED_PARAM events)
 {
+    printf("_execute");
     auto vars = CalcServer::singleton()->variables();
     float dt = *((float*)vars->get("dt")->get(true));
 

@@ -40,6 +40,8 @@ Authors:
     <Include file="resources/Presets/cfd/BIe.xml" />
     <Include file="resources/Presets/cfd/BIe/Force.xml" /> 
     <Include file="resources/Presets/cfd/BIe/BIe_energy.xml" />
+    <!--<Include file="resources/Presets/cfd/BIe/disableElasticBounce.xml" />-->
+    <Include file="resources/Presets/cfd/BIe/disablePST.xml" />
     <!--<Include file="resources/Presets/cfd/inlet.xml" />-->
     <!--<Include file="resources/Presets/cfd/outlet.xml" />-->
     <!--<Include file="resources/Presets/cfd/energy.xml" />-->
