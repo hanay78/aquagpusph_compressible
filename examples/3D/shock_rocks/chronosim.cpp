@@ -28,7 +28,7 @@
 #include <cmath>
 
 // The density of the rock material
-#define ROCK_DENSITY 1.0
+#define ROCK_DENSITY 2.0
 // The envelope size, that should match the blender setup
 #define ENVELOPE_SIZE 0.001
 
@@ -46,7 +46,6 @@ namespace Aqua{ namespace CalcServer{
  */
 unsigned int num_digits(unsigned int n)
 {
-    printf("num_digits\n");
     unsigned int digits = 1;
     while (n /= 10)
         digits++;
@@ -60,10 +59,10 @@ unsigned int num_digits(unsigned int n)
  */
 std::string int2string(unsigned int n, unsigned int digits)
 {
-    printf("int2string\n");
     std::string str = std::to_string(n);
     if (str.length() < digits)
         str.insert(0, digits - str.length(), '0');
+
     return str;
 }
 
@@ -79,7 +78,6 @@ RocksSim::~RocksSim()
 void
 RocksSim::setup()
 {
-    printf("setup\n");
     Tool::setup();
 
     // Get the configuration variables
@@ -88,7 +86,7 @@ RocksSim::setup()
         *((unsigned int*)vars->get("n_solids")->get(true));
     const float L = *((float*)vars->get("L")->get(true));
     const float rho = *((float*)vars->get("REFD")->get(true));
-
+    
     // Setup the chrono system
     _sys = chrono_types::make_shared<chrono::ChSystemNSC>();
     _sys->SetCollisionSystemType(chrono::ChCollisionSystem::Type::BULLET);
@@ -113,6 +111,8 @@ RocksSim::setup()
 
     // Setup the rocks
     const unsigned int digits = num_digits(n_solids);
+    
+
     for (unsigned int i=0; i < n_solids; i++) {
         auto trimesh = chrono::ChTriangleMeshConnected::CreateFromSTLFile(
             std::string("rock.") + int2string(i, digits) + ".subdivided.stl");
@@ -139,7 +139,7 @@ RocksSim::setup()
         coll_model->SetEnvelope(ENVELOPE_SIZE);
         auto rock_mat =
             chrono_types::make_shared<chrono::ChContactMaterialNSC>();
-        rock_mat->SetFriction(0.5);
+        rock_mat->SetFriction(0.005);
         rock_mat->SetDampingF(0.01);
         auto coll_shape =
             chrono_types::make_shared<chrono::ChCollisionShapeTriangleMesh>(
@@ -151,14 +151,14 @@ RocksSim::setup()
         rock->SetPos(cog);
 
         // Add the forces
-        auto bouyancy = chrono_types::make_shared<chrono::ChForce>();
+        /*auto bouyancy = chrono_types::make_shared<chrono::ChForce>();
         rock->AddForce(bouyancy);
         bouyancy->SetMode(chrono::ChForce::FORCE);
         bouyancy->SetFrame(chrono::ChForce::BODY);
         bouyancy->SetAlign(chrono::ChForce::WORLD_DIR);
         bouyancy->SetVrelpoint(chrono::ChVector3d(0, 0, 0));
         bouyancy->SetDir(chrono::ChVector3d(0, 0, 1));
-        bouyancy->SetMforce(vol * rho * 9.81);
+        bouyancy->SetMforce(vol * rho * 9.81);*/
 
         auto force = chrono_types::make_shared<chrono::ChForce>();
         rock->AddForce(force);
@@ -176,6 +176,7 @@ RocksSim::setup()
         torque->SetVrelpoint(chrono::ChVector3d(0, 0, 0));
     }
 
+    
     // _sys->SetTimestepperType(chrono::ChTimestepper::Type::EULER_IMPLICIT);
     _sys->Setup();
 
@@ -205,7 +206,6 @@ RocksSim::setup()
 void
 setForce(std::shared_ptr<chrono::ChForce> var, vec4 value)
 {
-    printf("setForce\n");
     chrono::ChVector3d v(value.x, value.y, value.z);
     if (v.IsNull()) {
         var->SetMforce(0.0);
@@ -221,7 +221,6 @@ setForce(std::shared_ptr<chrono::ChForce> var, vec4 value)
 void
 setVec(Aqua::InputOutput::Variable* var, chrono::ChVector3d value)
 {
-    printf("setVec\n");
     vec4 v;
     v.x = value.x();
     v.y = value.y();
@@ -233,7 +232,6 @@ setVec(Aqua::InputOutput::Variable* var, chrono::ChVector3d value)
 cl_event
 RocksSim::_execute(const std::vector<cl_event> UNUSED_PARAM events)
 {
-    printf("_execute");
     auto vars = CalcServer::singleton()->variables();
     float dt = *((float*)vars->get("dt")->get(true));
 

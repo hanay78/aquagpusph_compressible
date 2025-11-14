@@ -144,6 +144,7 @@ for i, f in enumerate(files):
                 0.0,
                 s,
                 imove)
+
             output.write(string)
             n_parts += 1
     output.close()
@@ -173,34 +174,29 @@ with open("rocks.xml", "w") as f:
     f.write("</sphInput>\n")
 
 print("Writing fluid...")
+
+
 L, B = float(bbox[1][0] - bbox[0][0]), float(bbox[1][1] - bbox[0][1])
 H = float(bbox[1][2])
-L *= 2
+
+L *= 2.0
 B *= 1.3
 H *= 1.5
 
 sep = 2.0
 h = hfac * dr
-#Lext = L + 2 * sep * h
 Lext = L
 
-#Nx = nx = int(round(Lext / dr)) + 1
+
 Nx = nx = int(round(Lext / dr))
 Ny = ny = int(round(B / dr))
 Nz = nz = int(round(H / dr))
 
-#Lext = (Nx - 1) * dr
+
 Lext = Nx * dr
-#L = Lext - 2 * sep * h
 L = Nx * dr
 B = Ny * dr
 H = Nz * dr
-
-n_buffer_depth = int(8.0 * sep * hfac)
-# Buffer for inflow/outflow
-n_buffer = n_buffer_depth * Ny * Nz
-# Buffers for inflow/outflow and front and back symmetries
-# n_buffer = n_buffer_depth * (ny * nz + nx * nz)
 
 points = []
 hL = 0.5 * Lext
@@ -236,10 +232,9 @@ for i, mesh in enumerate(meshes):
     points = points[np.logical_not(mask)]
 
 
-#Cx=-hL/2
-Cx=-3*hL/5
-Cy=0.0
-Cz=H/2
+Cx=-2*hL/5
+#Cy=0.0
+#Cz=H/2
 
 R=0.5*min(min(hL,hB), H/2)
 
@@ -256,7 +251,8 @@ for point in points:
     x, y, z = point
     imove = 1
     
-    if np.sqrt((x-Cx)**2+(y-Cy)**2+(z-Cz)**2) < R:
+    #if np.sqrt((x-Cx)**2+(y-Cy)**2+(z-Cz)**2) < R:
+    if x<Cx:
         rho, ener = rho1, e1
     else:
         rho, ener = rho2, e2
@@ -276,28 +272,6 @@ for point in points:
         imove)
     output.write(string)
     n_fluid += 1
-
-#x = Lext + 2 * sep * h
-#y = B + 2 * sep * h
-#z = 1.5 * H + 2 * sep * h
-#for i in range(n_buffer):
-#    n += 1
-#    imove = -255
-#    press = 0.0
-#    dens = refd
-#    mass = refd * dr**2.0
-#    string = ("{} {} {} 0.0, " * 5 + "{}, {}, {}, {}\n").format(
-#        x, y, z,
-#        0.0, 0.0, 0.0,
-#        0.0, 0.0, 0.0,
-#        0.0, 0.0, 0.0,
-#        0.0, 0.0, 0.0,
-#        dens,
-#        0.0,
-#        mass,
-#        imove)
-#    output.write(string)
-#    n_fluid += 1
 
 # Bottom
 for i in range(Nx):
@@ -374,7 +348,7 @@ for i in range(Nx):
             n_fluid += 1
             
             
-# two sides missing        
+# two sides        
 for j in range(Ny):
     y = -hB + 0.5 * dr + j * dr
     for k in range(Nz):
