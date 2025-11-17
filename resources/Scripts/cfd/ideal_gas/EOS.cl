@@ -72,7 +72,7 @@ __kernel void entry(const __global unsigned int* iset,
 
 
 
-__kernel void rho_from_p_e(const __global unsigned int* iset,
+__kernel void rho_from_p_e_BI(const __global unsigned int* iset,
                     const __global int* imove,
                     __global float* rho,
                     const __global float* eint,
@@ -83,10 +83,10 @@ __kernel void rho_from_p_e(const __global unsigned int* iset,
     usize i = get_global_id(0);
     if(i >= N)
         return;
-    if(EXCLUDED_PARTICLE(i))
-        return;
 
-    //p[i] = (gamma[iset[i]] - 1.0f) * rho[i] * eint[i];
+    if(imove[i] != -3){
+        return;
+    }
 
     rho[i] = p[i]/((gamma[iset[i]] - 1.0f)* eint[i]);
 
