@@ -37,7 +37,7 @@
      * @brief The elastic bounce is not tolerating that a particle becomes
      * closer than this distance (multiplied by \f$ \Delta r \f$).
      */
-    #define __MIN_BOUND_DIST__ 0.0f
+    #define __MIN_BOUND_DIST__ 0.5f
 #endif
 
 /** @brief Performs the boundary effect on the fluid particles.

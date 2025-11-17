@@ -69,6 +69,31 @@ __kernel void entry(const __global unsigned int* iset,
     p[i] = (gamma[iset[i]] - 1.0f) * rho[i] * eint[i];
 }
 
+
+
+
+__kernel void rho_from_p_e(const __global unsigned int* iset,
+                    const __global int* imove,
+                    __global float* rho,
+                    const __global float* eint,
+                    const __global float* p,
+                    __constant float* gamma,
+                    usize N)
+{
+    usize i = get_global_id(0);
+    if(i >= N)
+        return;
+    if(EXCLUDED_PARTICLE(i))
+        return;
+
+    //p[i] = (gamma[iset[i]] - 1.0f) * rho[i] * eint[i];
+
+    rho[i] = p[i]/((gamma[iset[i]] - 1.0f)* eint[i]);
+
+}
+
+
+
 /*
  * @}
  */
