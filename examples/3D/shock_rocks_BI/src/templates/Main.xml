@@ -37,7 +37,7 @@ Authors:
 
     <Include file="resources/Presets/cfd/BI_compressible.xml" />
     <Include file="resources/Presets/cfd/elasticBounce.xml" />
-    <Include file="resources/Presets/cfd/pressureForces.xml" />     
+    <Include file="resources/Presets/cfd/forces.xml" />     
     
     <Include file="resources/Presets/basic/domain.xml" />
     <Include file="resources/Presets/basic/timing.report.xml" />

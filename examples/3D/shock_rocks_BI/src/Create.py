@@ -167,9 +167,9 @@ with open("rocks.xml", "w") as f:
         f.write(f'\t<Include file="{xml}" />\n')
     f.write("\t<Tools>\n")
     for prefix in prefixes[1:]:
-        f.write(f'\t\t<Tool name="{prefix}cfd BIe backup p" action="try_remove" type="dummy"></Tool>\n')
-        f.write(f'\t\t<Tool name="{prefix}cfd BIe backup force_visc" action="try_remove" type="dummy"></Tool>\n')
-        f.write(f'\t\t<Tool name="{prefix}cfd BIe backup moment_visc" action="try_remove" type="dummy"></Tool>\n')
+        f.write(f'\t\t<Tool name="{prefix}cfd BI backup p" action="try_remove" type="dummy"></Tool>\n')
+        f.write(f'\t\t<Tool name="{prefix}cfd BI backup force_visc" action="try_remove" type="dummy"></Tool>\n')
+        f.write(f'\t\t<Tool name="{prefix}cfd BI backup moment_visc" action="try_remove" type="dummy"></Tool>\n')
     f.write("\t</Tools>\n")
     f.write("</sphInput>\n")
 
@@ -388,6 +388,6 @@ data = {'DR':str(dr), 'HFAC':str(hfac), 'CS':str(cs), 'COURANT':str(courant),
         'NX':str(Nx), 'NY':str(Ny), 'NZ':str(Nz), 'T': str(t_max),
         'NROCKS':str(n_rocks), 'n_fluid':str(n_fluid)}
 exttool_lib_name = "rocks_sim.dll" if platform.system() == "Windows" \
-    else "libs_rocks_sim.so"
+    else "libbi_rocks_sim.so"
 data['EXTTOOL_LIB_PATH'] = os.path.join(script_folder, exttool_lib_name)
 utils.configure(data, os.path.join(script_folder, "templates"))

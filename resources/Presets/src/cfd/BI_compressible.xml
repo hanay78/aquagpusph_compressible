@@ -30,6 +30,6 @@ Remarks:
         <Tool name="cfd BI interactions" action="insert" before="Interactions" type="kernel" path="../../Scripts/cfd/Boundary/BI_compressible/Interactions.cl"/>
         <Tool name="cfd BI Shepard" action="insert" before="Interactions" type="kernel" entry_point="apply" path="../../Scripts/cfd/Boundary/BI_compressible/Shepard.cl"/>
         <!-- Replace the way Shepard factor is computed -->
-        <Tool name="cfd Shepard" action="replace" type="kernel" entry_point="compute" path="../../Scripts/cfd/Boundary/BI/Shepard.cl"/>
+        <Tool name="cfd Shepard" action="replace" type="kernel" entry_point="compute" path="../../Scripts/cfd/Boundary/BI_compressible/Shepard.cl"/>
     </Tools>
 </sphInput>
