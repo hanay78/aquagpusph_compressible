@@ -51,6 +51,6 @@ Authors:
     <Include file="Motion.xml" />
     <!--<Include file="Initialization.xml" />-->
 
-    <Include file="resources/Presets/basic/kernels/cubicSpline.xml" when="end"/>
+    <!--<Include file="resources/Presets/basic/kernels/cubicSpline.xml" when="end"/>-->
 
 </sphInput>

@@ -85,7 +85,7 @@ RocksSim::setup()
     const unsigned int n_solids =
         *((unsigned int*)vars->get("n_solids")->get(true));
     const float L = *((float*)vars->get("L")->get(true));
-    const float rho = *((float*)vars->get("REFD")->get(true));
+    //const float rho = *((float*)vars->get("REFD")->get(true));
     
     // Setup the chrono system
     _sys = chrono_types::make_shared<chrono::ChSystemNSC>();
