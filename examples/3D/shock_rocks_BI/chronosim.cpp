@@ -28,7 +28,7 @@
 #include <cmath>
 
 // The density of the rock material
-#define ROCK_DENSITY 2.0
+#define ROCK_DENSITY 2000.0
 // The envelope size, that should match the blender setup
 #define ENVELOPE_SIZE 0.001
 
