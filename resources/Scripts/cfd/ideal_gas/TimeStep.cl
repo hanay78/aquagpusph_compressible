@@ -88,10 +88,11 @@ __kernel void entry(__global float* dt_var,
     float s_i = sound_speed_perfect_gas(gamma[iset[i]], p[i], rho[i]);
 
     float dt_u1 = courant * 0.4f * dxx / sqrt((4.0f * dxx * div_u[i] / rho[i])*(4.0f * dxx * div_u[i] / rho[i]) + s_i * s_i);
-    float dt_u2 = courant * sqrt(dxx / (length(grad_p[i])) );
+    float dt_u2 = courant * sqrt(dxx / (length(grad_p[i])+ 1.0e-12f) );
     float dt_u3 = courant * 0.4f * dxx / sqrt(length(u[i]) * length(u[i]) + s_i * s_i);
-    
-    float dt_u = min(min(dt_u1, dt_u2), dt_u3);
+    float dt_u6 =
+	    courant * dxx / (s_i + dxx * sqrt(div_u[i] * div_u[i]) / rho[i]);
+    float dt_u = min(min(min(dt_u1, dt_u2), dt_u3), dt_u6);
 
     dt_var[i] = max(min(dt, dt_u), dt_min);
 }
