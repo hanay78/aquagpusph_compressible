@@ -52,7 +52,7 @@ alpha = 0.0
 delta = 1.0
 visc_dyn = 0.0
 
-courant = 0.25
+courant = 0.1
 R = 0.5
 
 

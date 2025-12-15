@@ -101,5 +101,5 @@ __kernel void entry(const __global uint* restrict iset,
 
     grad_p[i].XYZ += __grad_p;
     div_u[i] += __div_u;
-    work_density[i] += p_i/rho_i*__div_u;
+    work_density[i] -= p_i/rho_i*__div_u;
 }

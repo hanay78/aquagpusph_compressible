@@ -21,8 +21,8 @@ Authors:
     <!-- In this file we will just include other XML definition files -->
     <Include file="resources/Presets/basic.xml" />
 
-    <Include file="resources/Presets/basic/time_scheme/improved_euler.xml" />
-
+    <!--<Include file="resources/Presets/basic/time_scheme/improved_euler.xml" />-->
+    <Include file="resources/Presets/basic/time_scheme/euler.xml" />
     <Include file="resources/Presets/basic/domain.xml" />
 
     <!--<Include file="resources/Presets/basic/time_scheme/midpoint.xml" />
@@ -39,7 +39,7 @@ Authors:
     <Include file="resources/Presets/cfd/ideal_gas/variableTimeStep.xml" />
 
     <Include file="resources/Presets/cfd/BI_compressible.xml" />
-    <Include file="resources/Presets/cfd/elasticBounce.xml" />
+    <!--<Include file="resources/Presets/cfd/elasticBounce.xml" />-->
     <Include file="resources/Presets/cfd/forces.xml" />     
     
     <Include file="resources/Presets/basic/domain.xml" />

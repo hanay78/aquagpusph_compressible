@@ -23,10 +23,10 @@ Remarks:
     </Definitions>
 
     <Tools>        
-        <Tool name="cfd BI grad_p" action="insert" before="Interactions" type="kernel" entry_point="freeslip" path="../../Scripts/cfd/Boundary/BI_compressible/GradP.cl"/>
+        <!--<Tool name="cfd BI grad_p" action="insert" before="Interactions" type="kernel" entry_point="freeslip" path="../../Scripts/cfd/Boundary/BI_compressible/GradP.cl"/>
         <Tool name="cfd BI interpolation" action="insert" before="Interactions" type="kernel" path="../../Scripts/cfd/Boundary/BI_compressible/Interpolation.cl"/>
         <Tool name="cfd BI interpolation Shepard" action="insert" before="Interactions" type="kernel" path="../../Scripts/cfd/Boundary/BI_compressible/InterpolationShepard.cl"/>
-        <Tool name="Hard EOS" action="insert" after="cfd BI interpolation Shepard" type="kernel" entry_point="rho_from_p_e_BI" path="../../Scripts/cfd/ideal_gas/EOS.cl"/>
+        <Tool name="Hard EOS" action="insert" after="cfd BI interpolation Shepard" type="kernel" entry_point="rho_from_p_e_BI" path="../../Scripts/cfd/ideal_gas/EOS.cl"/>-->
         <Tool name="cfd BI interactions" action="insert" before="Interactions" type="kernel" path="../../Scripts/cfd/Boundary/BI_compressible/Interactions.cl"/>
         <Tool name="cfd BI Shepard" action="insert" before="Interactions" type="kernel" entry_point="apply" path="../../Scripts/cfd/Boundary/BI_compressible/Shepard.cl"/>
         <!-- Replace the way Shepard factor is computed -->
