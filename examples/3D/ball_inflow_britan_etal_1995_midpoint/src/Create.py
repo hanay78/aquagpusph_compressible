@@ -339,7 +339,7 @@ data = {'DR':str(dr), 'HFAC':str(hfac), 'CS':str(cs), 'COURANT':str(courant),
         'VISC_DYN':str(visc_dyn), 'DELTA':str(delta), 'G':str(g),
         'L':str(L), 'B':str(B), 'H':str(H), 'R':str(R), 'GAMMA':str(gamma),        
         'NX':str(Nx), 'NY':str(Ny), 'NZ':str(Nz), 'T': str(t_max),
-        'U2':str(u2), 'E2':str(e2),
+        'U2':str(u2), 'E2':str(e2),'L_2':str(L/2.0), 'B_2':str(B/2.0), 'H_2':str(H/2.0), 
         'n_ball':str(n_ball), 'n_fluid':str(n_fluid)}
 exttool_lib_name = "britan_ball_sim_com_inflow.dll" if platform.system() == "Windows" \
     else "libbritan_ball_sim_com_inflow.so"
