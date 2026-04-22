@@ -43,6 +43,9 @@ Authors:
         <Variable name="n_ball" type="unsigned int" value="{{n_ball}}" />
                 <!-- Inlet boundary condition -->
         <Variable name="inflow_r" type="vec" value="-0.5*{{L}} + {{DR}} + support*h, -0.5*{{B}}, -0.5*{{H}}, 0.0" />
+        <Variable name="inflow_r" type="vec" value="-0.5*{{L}} + {{DR}} + support*h, -0.5*{{B}}, -0.5*{{H}}, 0.0" />
+>>>>>>> 19a09088 (fix(scripts) Inlet boundary condition for ideal gases)
+>>>>>>> f663e4c0 (fix(scripts) Inlet boundary condition for ideal gases)
         <Variable name="inflow_ru" type="vec" value="0.0, {{B}}, 0.0, 0.0" />
         <Variable name="inflow_rv" type="vec" value="0.0, 0.0, {{H}}, 0.0" />
         <Variable name="inflow_rFS" type="vec" value="-{{L_2}}, 0.0, 0.0, 0.0" />
