@@ -132,10 +132,7 @@ feed(__global int* restrict imove,
 	drhodt[ii] = 0.f;
 	eint[ii] = inflow_eint;
 	deintdt[ii] = 0.f;
-<<<<<<< HEAD
 	//gamma[ii] = inflow_gamma;
-=======
->>>>>>> 19a09088 (fix(scripts) Inlet boundary condition for ideal gases)
 	p[ii] = p_from_rho_eint(inflow_gamma, inflow_rho, inflow_eint);
 }
 
