@@ -67,6 +67,11 @@ __kernel void characteristics(const __global int* restrict imove,
                               float io_eint,
                               float io_gamma)
 {
+    printf("io_U=%f\n",io_U);
+    printf("io_rho=%f\n",io_rho);
+    printf("io_eint=%f\n",io_eint);
+    printf("io_gamma=%f\n", io_gamma);
+
     const usize i = get_global_id(0);
     if(i >= N)
         return;
