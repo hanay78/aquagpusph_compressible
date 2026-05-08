@@ -3,7 +3,7 @@
 <sphInput>
 
     <!--<Include file="../inflow.xml" />-->
-    <Include file="inflow_all.xml" />
+    <Include file="inflow.xml" />
 
 
     <Variables>

@@ -54,10 +54,10 @@ first component. Also the inflow_rv variable will be useless
         <Tool name="cfd check buffer particles" action="insert" before="Inflow" type="assert"
             condition="nbuffer >= inflow_starving * inflow_N_x * inflow_N_y" />
         <Tool name="cfd inflow feed" action="insert" before="Inflow" type="kernel"
-            entry_point="feed" path="../../../Scripts/cfd/ideal_gas/Inflow/Inflow_all.cl" />
+            entry_point="feed" path="../../../Scripts/cfd/ideal_gas/Inflow/Inflow.cl" />
         <!-- Now ensure that particles in the inflow are not affected by the interactions -->
         <Tool name="cfd inflow" action="insert" before="Rates" type="kernel" entry_point="rates"
-            path="../../../Scripts/cfd/ideal_gas/Inflow/Inflow_all.cl" />
+            path="../../../Scripts/cfd/ideal_gas/Inflow/Inflow.cl" />
     </Tools>
 
     <Include file="../../basic/setBuffer.xml" when="end" />
