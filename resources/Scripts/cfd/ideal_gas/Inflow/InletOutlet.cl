@@ -52,7 +52,7 @@ __kernel void characteristics(const __global int* restrict imove,
                               const __global vec* restrict u,
                               const __global float* restrict rho,  
                               const __global float* restrict eint,
-                              const __global float* restrict gamma,
+                              const __constant float* restrict gamma,
                               __global float* restrict j1,
                               __global float* restrict j2,
                               __global float* restrict j3,
@@ -67,11 +67,6 @@ __kernel void characteristics(const __global int* restrict imove,
                               float io_eint,
                               float io_gamma)
 {
-    printf("io_U=%f\n",io_U);
-    printf("io_rho=%f\n",io_rho);
-    printf("io_eint=%f\n",io_eint);
-    printf("io_gamma=%f\n", io_gamma);
-
     const usize i = get_global_id(0);
     if(i >= N)
         return;
@@ -82,6 +77,7 @@ __kernel void characteristics(const __global int* restrict imove,
     // left of the door
     if(dot(r[i] - io_r, INWARD_NORMAL_SIGN * io_n) < 0.f)
         return;
+        
     const float p_i = p_from_rho_eint(gamma[iset[i]], rho[i], eint[i]);
     const float cs_i = sound_speed_perfect_gas(gamma[iset[i]], p_i, rho[i]);
 
@@ -96,6 +92,11 @@ __kernel void characteristics(const __global int* restrict imove,
     j1[i] = -cs_i2 * (rho[i] - rhoref) + p_i - pref;
     j2[i] = rho[i] * cs_i * (un - uref) + p_i - pref;
     j3[i] = -rho[i] * cs_i * (un - uref) + p_i - pref;
+
+    //printf("io_U=%f\n", io_U);
+    //printf("io_rho=%f\n", io_rho);
+    //printf("io_eint=%f\n", io_eint);
+    //printf("io_gamma=%f\n", io_gamma);
 }
 
 
@@ -106,7 +107,7 @@ __kernel void values(const __global int* restrict imove,
                      __global vec* restrict u,
                      __global float* restrict rho,  
                      __global float* restrict eint,
-                     const __global float* restrict gamma,
+                     const __constant float* restrict gamma,
                      __global float* restrict p,
                      const __global float* restrict j1,
                      const __global float* restrict j2,

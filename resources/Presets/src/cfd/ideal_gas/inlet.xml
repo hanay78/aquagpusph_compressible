@@ -28,14 +28,18 @@
             value="inflow_r_x,inflow_r_y,inflow_r_z,inflow_r_w" />
         <Tool name="cfd inlet io_n" action="insert" after="cfd Shepard" type="set_scalar" in="io_n"
             value="inflow_n_x,inflow_n_y,inflow_n_z,inflow_n_w" />
+
         <Tool name="cfd inlet io_U" action="insert" after="cfd Shepard" type="set_scalar" in="io_U"
             value="inflow_U" />
+        
         <Tool name="cfd inlet io_rho" action="insert" after="cfd Shepard" type="set_scalar"
             in="io_rho"
             value="inflow_rho" />
+
         <Tool name="cfd inlet io_gamma" action="insert" after="cfd Shepard" type="set_scalar"
             in="io_gamma"
             value="inflow_gamma" />
+            
         <Tool name="cfd inlet io_eint" action="insert" after="cfd Shepard" type="set_scalar"
             in="io_eint"
             value="inflow_eint" />
